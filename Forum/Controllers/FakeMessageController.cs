@@ -24,6 +24,7 @@ namespace Forum.Controllers
         public ActionResult Details(int id)
         {
             return View();
+
         }
 
         // GET: FakeMessage/Create
