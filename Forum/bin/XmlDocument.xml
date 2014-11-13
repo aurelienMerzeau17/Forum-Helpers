@@ -539,7 +539,7 @@
             Get a forum information by id
             </summary>
             <param name="IDForum">forum id</param>
-            <returns>ForumModel ForumModel</returns>       
+            <returns>ForumModel Forum</returns>       
         </member>
         <member name="M:Forum.Controllers.ForumController.CreateForum(Forum.Models.ForumModel)">
             <summary>
