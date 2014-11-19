@@ -25,8 +25,15 @@ namespace Forum.Controllers
         [Route("api/Forums")]
         public List<ForumModel> GetListForum()
         {
-            ForumBusiness forum = new ForumBusiness();
-            return ConvertModel.ToModel(forum.GetListForum());
+            try
+            {
+                ForumBusiness forum = new ForumBusiness();
+                return ConvertModel.ToModel(forum.GetListForum());
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         /// <summary>
@@ -36,10 +43,17 @@ namespace Forum.Controllers
         /// <returns>ForumModel Forum</returns>       
         [HttpGet]
         [Route("api/Forum/{IDForum}")]
-         public ForumModel GetForum(int IDForum)
+        public ForumModel GetForum(int IDForum)
         {
-            ForumBusiness forum = new ForumBusiness();
-            return ConvertModel.ToModel(forum.GetForum(IDForum));
+            try
+            {
+                ForumBusiness forum = new ForumBusiness();
+                return ConvertModel.ToModel(forum.GetForum(IDForum));
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         /// <summary>
@@ -50,11 +64,8 @@ namespace Forum.Controllers
         [Route("api/Forum")]
         public bool CreateForum(ForumModel forum)
         {
-            /*ForumModel NewForum = new ForumModel();
-            NewForum.Nom = Name;
-            NewForum.Url = string.Empty;
-            ForumBusiness forum = new ForumBusiness();
-            forum.CreateForum(ConvertModel.ToBusiness(NewForum));*/
+            ForumBusiness forumB = new ForumBusiness();
+            forumB.CreateForum(ConvertModel.ToBusiness(forum));
             return true;
         }
 
@@ -66,8 +77,14 @@ namespace Forum.Controllers
         [Route("api/Forum/{id}")]
         public bool EditForum(ForumModel forum)
         {
+            ForumBusiness forumB = new ForumBusiness();
+            forumB.EditForum(ConvertModel.ToBusiness(forum));
             return true;
         }
+        
+        ///////////////////////////////////////////////////////////////////
+        //PROBLEME DE CONTRAINTES avec la BDD
+        ////////////////////////////////////////////////////////////////////
 
         /// <summary>
         /// Delete a forum by id
@@ -77,6 +94,8 @@ namespace Forum.Controllers
         [Route("api/Forum/{IDForum}")]
         public bool DeleteForum(int IDForum)
         {
+            ForumBusiness forumB = new ForumBusiness();
+            forumB.DeleteForum(IDForum);
             return true;
         }
     }

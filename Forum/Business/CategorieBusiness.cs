@@ -25,7 +25,7 @@ namespace Forum.Business
         public List<CategorieB> GetListCategorieForum(int forum_id)
         {
             CategorieDAL categorie = new CategorieDAL();
-            return ConvertBusiness.ToBusiness(categorie.GetListCategorieForum(forum_id));
+            return ConvertBusiness.ToBusiness(categorie.GetListCategorieByForum(forum_id));
         }
 
         public bool CreateCategorie(CategorieB cat)

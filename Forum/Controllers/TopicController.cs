@@ -22,9 +22,15 @@ namespace Forum.Controllers
         [Route("api/Topics")]
         public List<TopicModel> GetListTopic()
         {
-            TopicBusiness topic = new TopicBusiness();
-            List<TopicModel> ob = ConvertModel.ToModel(topic.GetListTopic());
-            return ob;
+            try
+            {
+                TopicBusiness topic = new TopicBusiness();
+                return ConvertModel.ToModel(topic.GetListTopic());
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         /// <summary>
@@ -36,42 +42,64 @@ namespace Forum.Controllers
         [Route("api/Topic/{id}")]
         public TopicModel GetTopic(int id)
         {
-            return null;
+            try
+            {
+                TopicBusiness topic = new TopicBusiness();
+                return ConvertModel.ToModel(topic.GetTopic(id));
+            }
+            catch
+            {
+                return null;
+            }
         }
 
+
+
         /// <summary>
-        /// Get a topic information by event id
+        /// Get a topic information by Category id
         /// </summary>
-        /// <param name="IDEvent">event id</param>
+        /// <param name="IDCategory">event id</param>
         /// <returns>Array TopicModel</returns>
         [HttpGet]
-        [Route("api/TopicEvent/{IDEvent}")]
-        public TopicModel GetTopicByEvent(int IDEvent)
+        [Route("api/TopicCategory/{IDCategory}")]
+        public List<TopicModel> GetTopicByCategory(int IDCategory)
         {
-            return null;
+            try
+            {
+                TopicBusiness topic = new TopicBusiness();
+                return ConvertModel.ToModel(topic.GetTopicByCategory(IDCategory));
+            }
+            catch
+            {
+                return null;
+            }
         }
 
-
+        ////////////////////////////////////////////////////////////////////////
+        //probleme contrainte sql
+        //////////////////////////////////////////////////////////////////////////
         /// <summary>
-        /// Create a topic with category id, a name and the content
+        /// Create a topic 
         /// </summary>
-        /// <param name="topic">TopicModel</param>
+        /// <param name="TopM">TopicModel</param>
         [HttpPost]
         [Route("api/Topic")]
-        public bool CreateTopic(TopicModel topic)
+        public int CreateTopic(TopicModel TopM)
         {
-            return true;
+            TopicBusiness Top = new TopicBusiness();
+            return Top.CreateTopic(ConvertModel.ToBusiness(TopM));
         }
 
         /// <summary>
         /// Edit a topic by id and the changed text
         /// </summary>
-        /// <param name="topic">TopicModel</param>
+        /// <param name="Top">TopicModel</param>
         [HttpPost]
         [Route("api/Topic/{id}")]
-        public bool EditTopic(TopicModel topic)
+        public bool EditTopic(TopicModel Top)
         {
-            return true;
+            TopicBusiness TopicM = new TopicBusiness();
+            return TopicM.EditTopic(ConvertModel.ToBusiness(Top));
         }
 
         /// <summary>
@@ -82,7 +110,8 @@ namespace Forum.Controllers
         [Route("api/Topic/{IDTopic}")]
         public bool DeleteTopic(int IDTopic)
         {
-            return true;
+            TopicBusiness topicB = new TopicBusiness();
+            return topicB.DeleteTopic(IDTopic);
         }
     }
 }

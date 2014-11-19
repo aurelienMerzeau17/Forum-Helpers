@@ -11,6 +11,4 @@ namespace Forum.Models
         public long Forum_id { get; set; } 
         public string Nom { get; set; }
     } 
-
-
 }

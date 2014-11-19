@@ -23,8 +23,15 @@ namespace Forum.Controllers
         [Route("api/Messages")]
         public List<MessageModel> GetListMessage()
         {
-            MessageBusiness messageB = new MessageBusiness();
-            return ConvertModel.ToModel(messageB.GetListMessage());
+            try
+            {
+                MessageBusiness messageB = new MessageBusiness();
+                return ConvertModel.ToModel(messageB.GetListMessage());
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         /// <summary>
@@ -36,8 +43,15 @@ namespace Forum.Controllers
         [Route("api/MessageUser/{IDUser}")]
         public List<MessageModel> GetListMessageByUser(int IDUser)
         {
-            MessageBusiness messageb = new MessageBusiness();
-            return ConvertModel.ToModel(messageb.GetListUserMessage(IDUser));
+            try
+            {
+                MessageBusiness messageb = new MessageBusiness();
+                return ConvertModel.ToModel(messageb.GetListUserMessage(IDUser));
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         /// <summary>
@@ -50,8 +64,15 @@ namespace Forum.Controllers
         [Route("api/Message/{IDMessage}")]
         public MessageModel GetMessage(int IDMessage)
         {
-            MessageBusiness messageb = new MessageBusiness();
-            return ConvertModel.ToModel(messageb.getMessage(IDMessage));
+            try
+            {
+                MessageBusiness messageb = new MessageBusiness();
+                return ConvertModel.ToModel(messageb.getMessage(IDMessage));
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         /// <summary>
@@ -64,7 +85,7 @@ namespace Forum.Controllers
         {
             MessageBusiness messageb = new MessageBusiness();
             return messageb.CreateMessage(ConvertModel.ToBusiness(Message));
-            
+
         }
 
         /// <summary>
@@ -104,7 +125,7 @@ namespace Forum.Controllers
 
             MessageBusiness messageb = new MessageBusiness();
             return ConvertModel.ToModel(messageb.GetListTopicMessage(IDTopic));
-        
+
         }
 
         /// <summary>

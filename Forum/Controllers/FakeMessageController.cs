@@ -17,14 +17,12 @@ namespace Forum.Controllers
             MessageDAL mes = new MessageDAL();
             liste = mes.GetListMessage();
             return View(liste);
-			
         }
 
         // GET: FakeMessage/Details/5
         public ActionResult Details(int id)
         {
             return View();
-
         }
 
         // GET: FakeMessage/Create

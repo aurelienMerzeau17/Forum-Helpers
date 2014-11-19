@@ -634,24 +634,24 @@
             <param name="id">topic id</param>
             <returns>Array TopicModel</returns>
         </member>
-        <member name="M:Forum.Controllers.TopicController.GetTopicByEvent(System.Int32)">
+        <member name="M:Forum.Controllers.TopicController.GetTopicByCategory(System.Int32)">
             <summary>
-            Get a topic information by event id
+            Get a topic information by Category id
             </summary>
-            <param name="IDEvent">event id</param>
+            <param name="IDCategory">event id</param>
             <returns>Array TopicModel</returns>
         </member>
         <member name="M:Forum.Controllers.TopicController.CreateTopic(Forum.Models.TopicModel)">
             <summary>
-            Create a topic with category id, a name and the content
+            Create a topic 
             </summary>
-            <param name="topic">TopicModel</param>
+            <param name="TopM">TopicModel</param>
         </member>
         <member name="M:Forum.Controllers.TopicController.EditTopic(Forum.Models.TopicModel)">
             <summary>
             Edit a topic by id and the changed text
             </summary>
-            <param name="topic">TopicModel</param>
+            <param name="Top">TopicModel</param>
         </member>
         <member name="M:Forum.Controllers.TopicController.DeleteTopic(System.Int32)">
             <summary>
@@ -679,7 +679,17 @@
             Represents the strongly named DataTable class.
             </summary>
         </member>
-        <member name="T:Forum.myDataSet.ps_FOR_CategorieDataTable">
+        <member name="T:Forum.myDataSet.ps_FOR_GetCategorieDataTable">
+             <summary>
+            Represents the strongly named DataTable class.
+            </summary>
+        </member>
+        <member name="T:Forum.myDataSet.ps_FOR_GetTopicDataTable">
+             <summary>
+            Represents the strongly named DataTable class.
+            </summary>
+        </member>
+        <member name="T:Forum.myDataSet.ps_FOR_GetMessageDataTable">
              <summary>
             Represents the strongly named DataTable class.
             </summary>
@@ -689,7 +699,17 @@
             Represents strongly named DataRow class.
             </summary>
         </member>
-        <member name="T:Forum.myDataSet.ps_FOR_CategorieRow">
+        <member name="T:Forum.myDataSet.ps_FOR_GetCategorieRow">
+             <summary>
+            Represents strongly named DataRow class.
+            </summary>
+        </member>
+        <member name="T:Forum.myDataSet.ps_FOR_GetTopicRow">
+             <summary>
+            Represents strongly named DataRow class.
+            </summary>
+        </member>
+        <member name="T:Forum.myDataSet.ps_FOR_GetMessageRow">
              <summary>
             Represents strongly named DataRow class.
             </summary>
@@ -699,7 +719,17 @@
             Row event argument class
             </summary>
         </member>
-        <member name="T:Forum.myDataSet.ps_FOR_CategorieRowChangeEvent">
+        <member name="T:Forum.myDataSet.ps_FOR_GetCategorieRowChangeEvent">
+             <summary>
+            Row event argument class
+            </summary>
+        </member>
+        <member name="T:Forum.myDataSet.ps_FOR_GetTopicRowChangeEvent">
+             <summary>
+            Row event argument class
+            </summary>
+        </member>
+        <member name="T:Forum.myDataSet.ps_FOR_GetMessageRowChangeEvent">
              <summary>
             Row event argument class
             </summary>
@@ -709,7 +739,17 @@
             Represents the connection and commands used to retrieve and save data.
             </summary>
         </member>
-        <member name="T:Forum.myDataSetTableAdapters.ps_FOR_CategorieTableAdapter">
+        <member name="T:Forum.myDataSetTableAdapters.ps_FOR_GetCategorieTableAdapter">
+             <summary>
+            Represents the connection and commands used to retrieve and save data.
+            </summary>
+        </member>
+        <member name="T:Forum.myDataSetTableAdapters.ps_FOR_GetTopicTableAdapter">
+             <summary>
+            Represents the connection and commands used to retrieve and save data.
+            </summary>
+        </member>
+        <member name="T:Forum.myDataSetTableAdapters.ps_FOR_GetMessageTableAdapter">
              <summary>
             Represents the connection and commands used to retrieve and save data.
             </summary>

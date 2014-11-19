@@ -1,4 +1,6 @@
 ﻿using Forum.DAL.Data;
+using Forum.DAL.Data.Mappeur;
+using Forum.myDataSetTableAdapters;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -9,178 +11,64 @@ namespace Forum.DAL
 {
     public class TopicDAL
     {
-        string connexionstring = "data source=avip9np4yy.database.windows.net,1433;initial catalog=YoupDEV;persist security info=True;user id=youpDEV;password=youpD3VASP*;MultipleActiveResultSets=True;App=EntityFramework";
-        SqlConnection myConnection;
-        public TopicDAL()
+        public int CreateTopic(TopicD top)
         {
-            myConnection = new SqlConnection(connexionstring);
-            try
+            int topic_id;
+            using (ps_FOR_GetTopicTableAdapter TopicTable = new ps_FOR_GetTopicTableAdapter())
             {
-                myConnection.Open();
+                topic_id = (int)TopicTable.ps_FOR_CreateTopic(top.Sujet_id, top.Nom, top.DescriptifTopic, top.DateCreation, top.Resolu, top.Utilisateur_id);
             }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.ToString());
-            }
-        }
-        public bool CreateTopic(TopicD Top)
-        {
-            try
-            {
-                using (SqlCommand command = new SqlCommand())
-                {
-                    command.Connection = myConnection;
-                    command.CommandText = "INSERT INTO FOR_Topic (Topic_id, Sujet_id, Nom, DescriptifTopic, DateCreation, Resolu, Utilisateur_id) "
-                        + "Values (" + Top.Topic_id + ", " + Top.Sujet_id + ", '" + Top.Nom + "', '" + Top.DescriptifTopic + "', '" + Top.DateCreation + "', " + Top.Resolu + ", " + Top.Utilisateur_id + ")";
-                    command.ExecuteNonQuery();
-                }
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
+            return topic_id;
         }
 
-        public bool EditTopic(TopicD Top)
+        //a modif?
+        public bool EditTopic(TopicD top)
         {
-            try
+            using (ps_FOR_GetTopicTableAdapter TopicTable = new ps_FOR_GetTopicTableAdapter())
             {
-                using (SqlCommand command = new SqlCommand())
-                {
-                    command.Connection = myConnection;
-                    command.CommandText = "UPDATE FOR_Topic SET Nom = '" + Top.Nom + "', DescriptifTopic = '" + Top.DescriptifTopic + "', Resolu = " + Top.Resolu + " WHERE Topic_id = " + Top.Topic_id;
-                    command.ExecuteNonQuery();
-                }
-                return true;
+                TopicTable.ps_FOR_UpdateTopic(top.Nom, top.DescriptifTopic, top.Resolu, top.Utilisateur_id);
             }
-            catch
-            {
-                return false;
-            }
+            return true;
         }
 
         public bool DeleteTopic(int id)
         {
-            try
+            using (ps_FOR_GetTopicTableAdapter TopicTable = new ps_FOR_GetTopicTableAdapter())
             {
-                using (SqlCommand command = new SqlCommand())
-                {
-                    command.Connection = myConnection;
-                    command.CommandText = "DELETE FROM FOR_Topic WHERE Topic_id = " + id;
-                    command.ExecuteNonQuery();
-                }
-                return true;
+                TopicTable.ps_FOR_DeleteTopic(id);
             }
-            catch
-            {
-                return false;
-            }
+            return true;
         }
 
         public List<TopicD> GetListTopic()
         {
-            List<TopicD> ListT = new List<TopicD>();
-            using (SqlCommand command = new SqlCommand("SELECT * FROM FOR_Topic", myConnection))
+            myDataSet.ps_FOR_GetTopicDataTable datatable;
+            using (ps_FOR_GetTopicTableAdapter TopicTable = new ps_FOR_GetTopicTableAdapter())
             {
-                using (SqlDataReader reader = command.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        ListT.Add(new TopicD
-                        {
-                            Topic_id = Convert.ToInt32(reader["Topic_id"]),
-                            Utilisateur_id = Convert.ToInt32(reader["Utilisateur_id"]),
-                            Sujet_id = Convert.ToInt32(reader["Sujet_id"]),
-                            Nom = reader["Nom"].ToString(),
-                            DescriptifTopic = reader["DescriptifTopic"].ToString(),
-                            DateCreation = Convert.ToDateTime(reader["DateCreation"]),
-                            Resolu = Convert.ToBoolean(reader["Resolu"])
-                        });
-                    }
-                }
+                datatable = TopicTable.ps_FOR_GetListTopic();
             }
-            return null;
+            return TopicMappeur.ToTopicD(datatable).ToList();
         }
 
-        public List<TopicD> GetListTopic(int Idcat)
-        {
-            List<TopicD> ListT = new List<TopicD>();
-            using (SqlCommand command = new SqlCommand("SELECT * FROM FOR_Topic where Sujet_id =" + Idcat, myConnection))
-            {
-                using (SqlDataReader reader = command.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        ListT.Add(new TopicD
-                        {
-                            Topic_id = Convert.ToInt32(reader["Topic_id"]),
-                            Utilisateur_id = Convert.ToInt32(reader["Utilisateur_id"]),
-                            Sujet_id = Convert.ToInt32(reader["Sujet_id"]),
-                            Nom = reader["Nom"].ToString(),
-                            DescriptifTopic = reader["DescriptifTopic"].ToString(),
-                            DateCreation = Convert.ToDateTime(reader["DateCreation"]),
-                            Resolu = Convert.ToBoolean(reader["Resolu"])
-                        });
-                    }
-                }
-            }
-            return null;
-        }
         public TopicD GetTopic(int id)
         {
-            TopicD top = new TopicD();
-            using (SqlCommand command = new SqlCommand("SELECT * FROM FOR_Topic WHERE Topic_id = " + id, myConnection))
+            myDataSet.ps_FOR_GetTopicDataTable datatable;
+            using (ps_FOR_GetTopicTableAdapter TopicDal = new ps_FOR_GetTopicTableAdapter())
             {
-                using (SqlDataReader reader = command.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        top.Topic_id = Convert.ToInt32(reader["Topic_id"]);
-                        top.Utilisateur_id = Convert.ToInt32(reader["Utilisateur_id"]);
-                        top.Sujet_id = Convert.ToInt32(reader["Sujet_id"]);
-                        top.Nom = reader["Nom"].ToString();
-                        top.DescriptifTopic = reader["DescriptifTopic"].ToString();
-                        top.DateCreation = Convert.ToDateTime(reader["DateCreation"]);
-                        top.Resolu = Convert.ToBoolean(reader["Resolu"]);
-                    }
-                }
+                datatable = TopicDal.ps_FOR_GetTopic(id);
             }
-            return null;
+            return TopicMappeur.ToTopicD(datatable).ElementAt(0);
         }
 
-        /*public TopicD GetTopicByEvent(int idEvent)//A completer, pas moyen de Récupérer un topic en passant par un evenement avec la bdd actuelle
+        internal List<TopicD> GetTopicByCategory(int IDCategory)
         {
-            TopicD top = new TopicD();
-            using (SqlCommand command = new SqlCommand("SELECT * FROM FOR_Topic WHERE Evenement_id", myConnection)) 
-            {
-                using (SqlDataReader reader = command.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        top.Topic_id = Convert.ToInt32(reader["Topic_id"]);
-                        top.Utilisateur_id = Convert.ToInt32(reader["Utilisateur_id"]);
-                        top.Sujet_id = Convert.ToInt32(reader["Sujet_id"]);
-                        top.Nom = reader["Nom"].ToString();
-                        top.DescriptifTopic = reader["DescriptifTopic"].ToString();
-                        top.DateCreation = Convert.ToDateTime(reader["DateCreation"]);
-                        top.Resolu = Convert.ToBoolean(reader["Resolu"]);
-                    }
-                }
-            }
-            return null;
-        }*/
+            myDataSet.ps_FOR_GetTopicDataTable datatable;
 
-        public void Dispose()
-        {
-            try
+            using (ps_FOR_GetTopicTableAdapter TopicTable = new ps_FOR_GetTopicTableAdapter())
             {
-                myConnection.Close();
+                datatable = TopicTable.ps_FOR_GetListTopicByCategorie(IDCategory);
             }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.ToString());
-            }
+            return TopicMappeur.ToTopicD(datatable).ToList();
         }
     }
 }
