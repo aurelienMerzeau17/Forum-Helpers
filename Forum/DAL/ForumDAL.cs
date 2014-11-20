@@ -55,7 +55,7 @@ namespace Forum.DAL
             myDataSet.ps_FOR_GetForumDataTable datatable;
             using (ps_FOR_GetForumTableAdapter ForumTable = new ps_FOR_GetForumTableAdapter())
             {
-                datatable = ForumTable.ps_FOR_GetListForum();
+                datatable = ForumTable.ps_FOR_GetForum(id);
             }
             return ForumMappeur.ToForumD(datatable).ElementAt(0);
         }

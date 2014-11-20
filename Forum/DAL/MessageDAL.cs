@@ -31,7 +31,6 @@ namespace Forum.DAL
 
         public bool DeleteMessage(int id)
         {
-
             using (ps_FOR_GetMessageTableAdapter MessageDal = new ps_FOR_GetMessageTableAdapter())
             {
                 MessageDal.ps_FOR_DeleteMessage(id);
@@ -41,7 +40,6 @@ namespace Forum.DAL
 
         public List<MessageD> GetListTopicMessage(int idTopic)
         {
-
             myDataSet.ps_FOR_GetMessageDataTable datatable;
 
             using (ps_FOR_GetMessageTableAdapter MessageDal = new ps_FOR_GetMessageTableAdapter())
@@ -50,8 +48,6 @@ namespace Forum.DAL
             }
             return MessageMappeur.ToMessageD(datatable).ToList();
         }
-
-
 
         public List<MessageD> GetListUserMessage(int idUser)
         {
@@ -87,16 +83,32 @@ namespace Forum.DAL
             }
         }
 
-        /*public void ReportMessage(int id) //A completer, pas moyen de signaler un messsage avec la bdd actuelle
+        public bool ReportMessage(int id)
         {
-            using (SqlCommand command = new SqlCommand())
+            using (ps_FOR_GetMessageTableAdapter MessageDal = new ps_FOR_GetMessageTableAdapter())
             {
-                command.Connection = myConnection;
-                command.CommandText = "UPDATE FOR_Message SET ContenuMessage = '" + mes.ContenuMessage + "' WHERE Message_id = " + mes.Message_id;
-                command.ExecuteNonQuery();
+                MessageDal.ps_FOR_ReportMessage(id);
             }
-        }*/
+            return true;
+        }
 
+        internal List<MessageD> GetListReportMessage()
+        {
+            myDataSet.ps_FOR_GetMessageDataTable datatable;
+            using (ps_FOR_GetMessageTableAdapter MessageDal = new ps_FOR_GetMessageTableAdapter())
+            {
+                datatable = MessageDal.ps_FOR_GetListReportMessage();
+            }
+            return MessageMappeur.ToMessageD(datatable).ToList();
+        }
 
+        internal bool UnReportMessage(int IDMessage)
+        {
+            using (ps_FOR_GetMessageTableAdapter MessageDal = new ps_FOR_GetMessageTableAdapter())
+            {
+                MessageDal.ps_FOR_UnReportMessage(IDMessage);
+            }
+            return true;
+        }
     }
 }

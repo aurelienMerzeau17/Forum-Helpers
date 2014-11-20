@@ -1335,6 +1335,8 @@ namespace Forum {
             
             private global::System.Data.DataColumn columnContenuMessage;
             
+            private global::System.Data.DataColumn columnReport;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public ps_FOR_GetMessageDataTable() {
@@ -1410,6 +1412,14 @@ namespace Forum {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn ReportColumn {
+                get {
+                    return this.columnReport;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -1445,14 +1455,15 @@ namespace Forum {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ps_FOR_GetMessageRow Addps_FOR_GetMessageRow(long Topic_id, long Utilisateur_id, System.DateTime DatePoste, string ContenuMessage) {
+            public ps_FOR_GetMessageRow Addps_FOR_GetMessageRow(long Topic_id, long Utilisateur_id, System.DateTime DatePoste, string ContenuMessage, bool Report) {
                 ps_FOR_GetMessageRow rowps_FOR_GetMessageRow = ((ps_FOR_GetMessageRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
                         Topic_id,
                         Utilisateur_id,
                         DatePoste,
-                        ContenuMessage};
+                        ContenuMessage,
+                        Report};
                 rowps_FOR_GetMessageRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowps_FOR_GetMessageRow);
                 return rowps_FOR_GetMessageRow;
@@ -1487,6 +1498,7 @@ namespace Forum {
                 this.columnUtilisateur_id = base.Columns["Utilisateur_id"];
                 this.columnDatePoste = base.Columns["DatePoste"];
                 this.columnContenuMessage = base.Columns["ContenuMessage"];
+                this.columnReport = base.Columns["Report"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1502,6 +1514,8 @@ namespace Forum {
                 base.Columns.Add(this.columnDatePoste);
                 this.columnContenuMessage = new global::System.Data.DataColumn("ContenuMessage", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnContenuMessage);
+                this.columnReport = new global::System.Data.DataColumn("Report", typeof(bool), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnReport);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnMessage_id}, true));
                 this.columnMessage_id.AutoIncrement = true;
@@ -1515,6 +1529,7 @@ namespace Forum {
                 this.columnDatePoste.AllowDBNull = false;
                 this.columnContenuMessage.AllowDBNull = false;
                 this.columnContenuMessage.MaxLength = 4000;
+                this.columnReport.AllowDBNull = false;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1895,6 +1910,17 @@ namespace Forum {
                 }
                 set {
                     this[this.tableps_FOR_GetMessage.ContenuMessageColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Report {
+                get {
+                    return ((bool)(this[this.tableps_FOR_GetMessage.ReportColumn]));
+                }
+                set {
+                    this[this.tableps_FOR_GetMessage.ReportColumn] = value;
                 }
             }
         }
@@ -3152,6 +3178,7 @@ namespace Forum.myDataSetTableAdapters {
             tableMapping.ColumnMappings.Add("Utilisateur_id", "Utilisateur_id");
             tableMapping.ColumnMappings.Add("DatePoste", "DatePoste");
             tableMapping.ColumnMappings.Add("ContenuMessage", "ContenuMessage");
+            tableMapping.ColumnMappings.Add("Report", "Report");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -3165,7 +3192,7 @@ namespace Forum.myDataSetTableAdapters {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitCommandCollection() {
-            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[7];
+            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[10];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = "dbo.ps_FOR_GetMessage";
@@ -3194,23 +3221,40 @@ namespace Forum.myDataSetTableAdapters {
             this._commandCollection[3].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[4] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[4].Connection = this.Connection;
-            this._commandCollection[4].CommandText = "dbo.ps_FOR_GetListTopicMessage";
+            this._commandCollection[4].CommandText = "dbo.ps_FOR_GetListReportMessage";
             this._commandCollection[4].CommandType = global::System.Data.CommandType.StoredProcedure;
             this._commandCollection[4].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[4].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Topic_id", global::System.Data.SqlDbType.BigInt, 8, global::System.Data.ParameterDirection.Input, 19, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[5] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[5].Connection = this.Connection;
-            this._commandCollection[5].CommandText = "dbo.ps_FOR_GetListUserMessage";
+            this._commandCollection[5].CommandText = "dbo.ps_FOR_GetListTopicMessage";
             this._commandCollection[5].CommandType = global::System.Data.CommandType.StoredProcedure;
             this._commandCollection[5].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[5].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Utilisateur_id", global::System.Data.SqlDbType.BigInt, 8, global::System.Data.ParameterDirection.Input, 19, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[5].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Topic_id", global::System.Data.SqlDbType.BigInt, 8, global::System.Data.ParameterDirection.Input, 19, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[6] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[6].Connection = this.Connection;
-            this._commandCollection[6].CommandText = "dbo.ps_FOR_UpdateMessage";
+            this._commandCollection[6].CommandText = "dbo.ps_FOR_GetListUserMessage";
             this._commandCollection[6].CommandType = global::System.Data.CommandType.StoredProcedure;
             this._commandCollection[6].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[6].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Message_id", global::System.Data.SqlDbType.BigInt, 8, global::System.Data.ParameterDirection.Input, 19, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[6].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ContenuMessage", global::System.Data.SqlDbType.NVarChar, 4000, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[6].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Utilisateur_id", global::System.Data.SqlDbType.BigInt, 8, global::System.Data.ParameterDirection.Input, 19, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[7] = new global::System.Data.SqlClient.SqlCommand();
+            this._commandCollection[7].Connection = this.Connection;
+            this._commandCollection[7].CommandText = "dbo.ps_FOR_ReportMessage";
+            this._commandCollection[7].CommandType = global::System.Data.CommandType.StoredProcedure;
+            this._commandCollection[7].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[7].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Message_id", global::System.Data.SqlDbType.BigInt, 8, global::System.Data.ParameterDirection.Input, 19, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[8] = new global::System.Data.SqlClient.SqlCommand();
+            this._commandCollection[8].Connection = this.Connection;
+            this._commandCollection[8].CommandText = "dbo.ps_FOR_UnReportMessage";
+            this._commandCollection[8].CommandType = global::System.Data.CommandType.StoredProcedure;
+            this._commandCollection[8].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[8].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Message_id", global::System.Data.SqlDbType.BigInt, 8, global::System.Data.ParameterDirection.Input, 19, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[9] = new global::System.Data.SqlClient.SqlCommand();
+            this._commandCollection[9].Connection = this.Connection;
+            this._commandCollection[9].CommandText = "dbo.ps_FOR_UpdateMessage";
+            this._commandCollection[9].CommandType = global::System.Data.CommandType.StoredProcedure;
+            this._commandCollection[9].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RETURN_VALUE", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.ReturnValue, 10, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[9].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Message_id", global::System.Data.SqlDbType.BigInt, 8, global::System.Data.ParameterDirection.Input, 19, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[9].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ContenuMessage", global::System.Data.SqlDbType.NVarChar, 4000, global::System.Data.ParameterDirection.Input, 0, 0, null, global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3245,8 +3289,19 @@ namespace Forum.myDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
-        public virtual myDataSet.ps_FOR_GetMessageDataTable ps_FOR_GetListTopicMessage(global::System.Nullable<long> Topic_id) {
+        public virtual myDataSet.ps_FOR_GetMessageDataTable ps_FOR_GetListReportMessage() {
             this.Adapter.SelectCommand = this.CommandCollection[4];
+            myDataSet.ps_FOR_GetMessageDataTable dataTable = new myDataSet.ps_FOR_GetMessageDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
+        public virtual myDataSet.ps_FOR_GetMessageDataTable ps_FOR_GetListTopicMessage(global::System.Nullable<long> Topic_id) {
+            this.Adapter.SelectCommand = this.CommandCollection[5];
             if ((Topic_id.HasValue == true)) {
                 this.Adapter.SelectCommand.Parameters[1].Value = ((long)(Topic_id.Value));
             }
@@ -3263,7 +3318,7 @@ namespace Forum.myDataSetTableAdapters {
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
         public virtual myDataSet.ps_FOR_GetMessageDataTable ps_FOR_GetListUserMessage(global::System.Nullable<long> Utilisateur_id) {
-            this.Adapter.SelectCommand = this.CommandCollection[5];
+            this.Adapter.SelectCommand = this.CommandCollection[6];
             if ((Utilisateur_id.HasValue == true)) {
                 this.Adapter.SelectCommand.Parameters[1].Value = ((long)(Utilisateur_id.Value));
             }
@@ -3280,7 +3335,7 @@ namespace Forum.myDataSetTableAdapters {
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
         public virtual myDataSet.ps_FOR_GetMessageDataTable ps_FOR_UpdateMessage(global::System.Nullable<long> Message_id, string ContenuMessage) {
-            this.Adapter.SelectCommand = this.CommandCollection[6];
+            this.Adapter.SelectCommand = this.CommandCollection[9];
             if ((Message_id.HasValue == true)) {
                 this.Adapter.SelectCommand.Parameters[1].Value = ((long)(Message_id.Value));
             }
@@ -3349,6 +3404,62 @@ namespace Forum.myDataSetTableAdapters {
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         public virtual int ps_FOR_DeleteMessage(global::System.Nullable<long> Message_id) {
             global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[2];
+            if ((Message_id.HasValue == true)) {
+                command.Parameters[1].Value = ((long)(Message_id.Value));
+            }
+            else {
+                command.Parameters[1].Value = global::System.DBNull.Value;
+            }
+            global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
+            if (((command.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                command.Connection.Open();
+            }
+            int returnValue;
+            try {
+                returnValue = command.ExecuteNonQuery();
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    command.Connection.Close();
+                }
+            }
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int ps_FOR_ReportMessage(global::System.Nullable<long> Message_id) {
+            global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[7];
+            if ((Message_id.HasValue == true)) {
+                command.Parameters[1].Value = ((long)(Message_id.Value));
+            }
+            else {
+                command.Parameters[1].Value = global::System.DBNull.Value;
+            }
+            global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
+            if (((command.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                command.Connection.Open();
+            }
+            int returnValue;
+            try {
+                returnValue = command.ExecuteNonQuery();
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    command.Connection.Close();
+                }
+            }
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int ps_FOR_UnReportMessage(global::System.Nullable<long> Message_id) {
+            global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[8];
             if ((Message_id.HasValue == true)) {
                 command.Parameters[1].Value = ((long)(Message_id.Value));
             }

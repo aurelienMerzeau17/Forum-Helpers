@@ -12,5 +12,6 @@ namespace Forum.DAL.Data
         public long Utilisateur_id { get; set; }
         public System.DateTime DatePoste { get; set; }
         public string ContenuMessage { get; set; }
+        public bool Report { get; set; }
     }
 }

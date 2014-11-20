@@ -1,5 +1,6 @@
 ﻿using Forum.Business;
 using Forum.Models;
+using Logger;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,8 @@ namespace Forum.Controllers
     /// </summary>
     public class TopicController : ApiController
     {
+        string urlLogger = "http://loggerasp.azurewebsites.net/";
+
         /// <summary>
         /// Get an array of all topic informations
         /// </summary>
@@ -27,8 +30,9 @@ namespace Forum.Controllers
                 TopicBusiness topic = new TopicBusiness();
                 return ConvertModel.ToModel(topic.GetListTopic());
             }
-            catch
+            catch (Exception e)
             {
+                new LErreur(e, "Forum", "GetListTopic", 5).Save(urlLogger);
                 return null;
             }
         }
@@ -47,8 +51,9 @@ namespace Forum.Controllers
                 TopicBusiness topic = new TopicBusiness();
                 return ConvertModel.ToModel(topic.GetTopic(id));
             }
-            catch
+            catch (Exception e)
             {
+                new LErreur(e, "Forum", "GetTopic", 5).Save(urlLogger);
                 return null;
             }
         }
@@ -69,15 +74,13 @@ namespace Forum.Controllers
                 TopicBusiness topic = new TopicBusiness();
                 return ConvertModel.ToModel(topic.GetTopicByCategory(IDCategory));
             }
-            catch
+            catch (Exception e)
             {
+                new LErreur(e, "Forum", "GetTopicByCategory", 5).Save(urlLogger);
                 return null;
             }
         }
 
-        ////////////////////////////////////////////////////////////////////////
-        //probleme contrainte sql
-        //////////////////////////////////////////////////////////////////////////
         /// <summary>
         /// Create a topic 
         /// </summary>
@@ -86,32 +89,40 @@ namespace Forum.Controllers
         [Route("api/Topic")]
         public int CreateTopic(TopicModel TopM)
         {
-            TopicBusiness Top = new TopicBusiness();
-            return Top.CreateTopic(ConvertModel.ToBusiness(TopM));
+            try
+            {
+                TopicBusiness Top = new TopicBusiness();
+                return Top.CreateTopic(ConvertModel.ToBusiness(TopM));
+            }
+            catch (Exception e)
+            {
+                new LErreur(e, "Forum", "CreateTopic", 5).Save(urlLogger);
+                return -1;
+            }
         }
 
-        /// <summary>
-        /// Edit a topic by id and the changed text
-        /// </summary>
-        /// <param name="Top">TopicModel</param>
-        [HttpPost]
-        [Route("api/Topic/{id}")]
-        public bool EditTopic(TopicModel Top)
-        {
-            TopicBusiness TopicM = new TopicBusiness();
-            return TopicM.EditTopic(ConvertModel.ToBusiness(Top));
-        }
+        ///// <summary>
+        ///// Edit a topic by id and the changed text
+        ///// </summary>
+        ///// <param name="Top">TopicModel</param>
+        //[HttpPost]
+        //[Route("api/Topic/{id}")]
+        //public bool EditTopic(TopicModel Top)
+        //{
+        //    TopicBusiness TopicM = new TopicBusiness();
+        //    return TopicM.EditTopic(ConvertModel.ToBusiness(Top));
+        //}
 
-        /// <summary>
-        /// Delete topic by id
-        /// </summary>
-        /// <param name="IDTopic">topic id</param>
-        [HttpDelete]
-        [Route("api/Topic/{IDTopic}")]
-        public bool DeleteTopic(int IDTopic)
-        {
-            TopicBusiness topicB = new TopicBusiness();
-            return topicB.DeleteTopic(IDTopic);
-        }
+        ///// <summary>
+        ///// Delete topic by id
+        ///// </summary>
+        ///// <param name="IDTopic">topic id</param>
+        //[HttpDelete]
+        //[Route("api/Topic/{IDTopic}")]
+        //public bool DeleteTopic(int IDTopic)
+        //{
+        //    TopicBusiness topicB = new TopicBusiness();
+        //    return topicB.DeleteTopic(IDTopic);
+        //}
     }
 }

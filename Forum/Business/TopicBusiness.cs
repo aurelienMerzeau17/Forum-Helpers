@@ -34,6 +34,14 @@ namespace Forum.Business
         }
         public bool DeleteTopic(int id)
         {
+            MessageBusiness mes = new MessageBusiness();
+            List<MessageB> listMesB = mes.GetListTopicMessage(Convert.ToInt32(id));
+
+            foreach (MessageB m in listMesB)
+            {
+                mes.DeleteMessage(Convert.ToInt32(m.Message_id));
+            }
+
             TopicDAL topicD = new TopicDAL();
             return topicD.DeleteTopic(id);
         }

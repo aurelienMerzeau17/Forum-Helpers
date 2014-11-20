@@ -43,4 +43,5 @@ C:\Users\Aurélien\Source\Repos\Forum\Forum\bin\fr\System.Web.WebPages.Razor.res
 C:\Users\Aurélien\Source\Repos\Forum\Forum\bin\fr\System.Web.Optimization.resources.dll
 C:\Users\Aurélien\Source\Repos\Forum\Forum\obj\Debug\Forum.dll
 C:\Users\Aurélien\Source\Repos\Forum\Forum\obj\Debug\Forum.pdb
+C:\Users\Aurélien\Source\Repos\Forum\Forum\bin\Logger.dll
 C:\Users\Aurélien\Source\Repos\Forum\Forum\obj\Debug\Forum.csprojResolveAssemblyReference.cache

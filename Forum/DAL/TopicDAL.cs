@@ -21,12 +21,11 @@ namespace Forum.DAL
             return topic_id;
         }
 
-        //a modif?
         public bool EditTopic(TopicD top)
         {
             using (ps_FOR_GetTopicTableAdapter TopicTable = new ps_FOR_GetTopicTableAdapter())
             {
-                TopicTable.ps_FOR_UpdateTopic(top.Nom, top.DescriptifTopic, top.Resolu, top.Utilisateur_id);
+                TopicTable.ps_FOR_UpdateTopic(top.Nom, top.DescriptifTopic, top.Resolu, top.Topic_id);
             }
             return true;
         }

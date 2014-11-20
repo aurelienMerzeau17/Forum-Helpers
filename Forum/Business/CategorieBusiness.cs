@@ -42,6 +42,21 @@ namespace Forum.Business
 
         public bool DeleteCategorie(int id)
         {
+            TopicBusiness top = new TopicBusiness();
+            List<TopicB> listTopB = top.GetTopicByCategory(Convert.ToInt32(id));
+
+            foreach (TopicB t in listTopB)
+            {
+                MessageBusiness mes = new MessageBusiness();
+                List<MessageB> listMesB = mes.GetListTopicMessage(Convert.ToInt32(t.Topic_id));
+
+                foreach (MessageB m in listMesB)
+                {
+                    mes.DeleteMessage(Convert.ToInt32(m.Message_id));
+                }
+                top.DeleteTopic(Convert.ToInt32(t.Topic_id));
+            }
+
             CategorieDAL categorie = new CategorieDAL();
             return categorie.DeleteCategorie(id);
         }

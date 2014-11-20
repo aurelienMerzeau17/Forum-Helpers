@@ -26,6 +26,7 @@ namespace Forum.DAL.Data.Mappeur
             d.Utilisateur_id = row.Utilisateur_id;
             d.DatePoste = row.DatePoste;
             d.ContenuMessage = row.ContenuMessage;
+            d.Report = row.Report;
 
             return d;
         }

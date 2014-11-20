@@ -505,24 +505,6 @@
             </summary>
             <returns>Array ListCategoryModel</returns>
         </member>
-        <member name="M:Forum.Controllers.CategoryController.CreateCategory(Forum.Models.CategorieModel)">
-            <summary>
-            Create a Category with his name and the forum id
-            </summary>
-            <param name="cat">CategorieModel</param>
-        </member>
-        <member name="M:Forum.Controllers.CategoryController.EditCategory(Forum.Models.CategorieModel)">
-            <summary>
-            Edit a category by id
-            </summary>
-            <param name="cat">CategorieModel</param>
-        </member>
-        <member name="M:Forum.Controllers.CategoryController.DeleteCategory(System.Int32)">
-            <summary>
-            Delete a category by id
-            </summary>
-            <param name="IDCategory">category id</param>
-        </member>
         <member name="T:Forum.Controllers.ForumController">
             <summary>
             Available method for the forums
@@ -540,24 +522,6 @@
             </summary>
             <param name="IDForum">forum id</param>
             <returns>ForumModel Forum</returns>       
-        </member>
-        <member name="M:Forum.Controllers.ForumController.CreateForum(Forum.Models.ForumModel)">
-            <summary>
-            Create a forum with his name
-            </summary>
-            <param name="forum">forum Model</param>
-        </member>
-        <member name="M:Forum.Controllers.ForumController.EditForum(Forum.Models.ForumModel)">
-            <summary>
-            Edit a forum by id
-            </summary>
-            <param name="forum">forumModel</param>
-        </member>
-        <member name="M:Forum.Controllers.ForumController.DeleteForum(System.Int32)">
-            <summary>
-            Delete a forum by id
-            </summary>
-            <param name="IDForum">forum id</param>
         </member>
         <member name="T:Forum.Controllers.MessageController">
             <summary>
@@ -592,18 +556,6 @@
             </summary>
             <param name="Message">message content</param>
         </member>
-        <member name="M:Forum.Controllers.MessageController.EditMessage(Forum.Models.MessageModel)">
-            <summary>
-            Edit message by message and the changed text
-            </summary>
-            <param name="mes">message content</param>
-        </member>
-        <member name="M:Forum.Controllers.MessageController.DeleteMessage(System.Int32)">
-            <summary>
-            Delete a message by id
-            </summary>
-            <param name="IDMessage">message id</param>
-        </member>
         <member name="M:Forum.Controllers.MessageController.GetListTopicMessage(System.Int32)">
             <summary>
             Get an array of all Topic's messages
@@ -615,6 +567,17 @@
             Report a message by id
             </summary>
             <param name="IDMessage">message id</param>
+        </member>
+        <member name="M:Forum.Controllers.MessageController.UnReportMessage(System.Int32)">
+            <summary>
+            UnReport a message by id
+            </summary>
+            <param name="IDMessage">message id</param>
+        </member>
+        <member name="M:Forum.Controllers.MessageController.GetListReportMessage">
+            <summary>
+            Get an array of all reported messages
+            </summary>
         </member>
         <member name="T:Forum.Controllers.TopicController">
             <summary>
@@ -646,18 +609,6 @@
             Create a topic 
             </summary>
             <param name="TopM">TopicModel</param>
-        </member>
-        <member name="M:Forum.Controllers.TopicController.EditTopic(Forum.Models.TopicModel)">
-            <summary>
-            Edit a topic by id and the changed text
-            </summary>
-            <param name="Top">TopicModel</param>
-        </member>
-        <member name="M:Forum.Controllers.TopicController.DeleteTopic(System.Int32)">
-            <summary>
-            Delete topic by id
-            </summary>
-            <param name="IDTopic">topic id</param>
         </member>
         <member name="T:Forum.Models.MessageModel">
             <summary>
