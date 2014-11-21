@@ -24,6 +24,14 @@ namespace Forum.Controllers
             return response.Data;
         }
 
+
+        /// <summary>
+        /// get a small user by id
+        /// </summary>
+        /// <param name="id"> user id</param>
+        /// <returns>UserSmallModel</returns>
+        [HttpGet]
+        [Route("api/GetSmallUserById")]
         public UserSmallModel GetUserById(int id)
         {
             var request = new RestRequest("api/UserSmall/" + id, Method.GET);
@@ -32,6 +40,15 @@ namespace Forum.Controllers
             return result;
         }
 
+
+        /// <summary>
+        /// Post a message to research api
+        /// </summary>
+        /// <param name="Message">MessageModel</param>
+        /// <param name="pseudo">Pseudo of the user who post the message</param>
+        /// <returns>boolean</returns>
+        [HttpPost]
+        [Route("api/PostMesstoResearch")]
         public bool PostMess(MessageModel Message, string pseudo)
         {
             var client = new RestClient("http://youp-recherche.azurewebsites.net/");
