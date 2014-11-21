@@ -44,4 +44,5 @@ C:\Users\Aurélien\Source\Repos\Forum\Forum\bin\fr\System.Web.Optimization.resou
 C:\Users\Aurélien\Source\Repos\Forum\Forum\obj\Debug\Forum.dll
 C:\Users\Aurélien\Source\Repos\Forum\Forum\obj\Debug\Forum.pdb
 C:\Users\Aurélien\Source\Repos\Forum\Forum\bin\Logger.dll
-C:\Users\Aurélien\Source\Repos\Forum\Forum\obj\Debug\Forum.csprojResolveAssemblyReference.cache
+C:\Users\Aurélien\Source\Repos\Forum\Forum\bin\RestSharp.dll
+C:\Users\Aurélien\Source\Repos\Forum\Forum\bin\RestSharp.xml

@@ -57,6 +57,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="RestSharp">
+      <HintPath>..\packages\RestSharp.105.0.1\lib\net4\RestSharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
@@ -194,6 +197,7 @@
     <Compile Include="DAL\MessageDAL.cs" />
     <Compile Include="DAL\CategorieDAL.cs" />
     <Compile Include="DAL\TopicDAL.cs" />
+    <Compile Include="Models\UserSmallModel.cs" />
     <Compile Include="myDataSet.cs">
       <DependentUpon>myDataSet.xsd</DependentUpon>
       <SubType>Component</SubType>

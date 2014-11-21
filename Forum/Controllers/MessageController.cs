@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using RestSharp;
 
 namespace Forum.Controllers
 {
@@ -15,6 +16,31 @@ namespace Forum.Controllers
     /// </summary>
     public class MessageController : ApiController
     {
+
+        public T Execute<T>(RestRequest request) where T : new()
+        {
+            var client = new RestClient("http://aspmoduleprofil.azurewebsites.net/");
+            var response = client.Execute<T>(request);
+            return response.Data;
+        }
+
+        public UserSmallModel GetUserById(int id)
+        {
+            var request = new RestRequest("api/UserSmall/" + id, Method.GET);
+            var result = Execute<UserSmallModel>(request);
+
+            return result;
+        }
+
+        public bool PostMess(MessageModel Message, string pseudo)
+        {
+            var client = new RestClient("http://youp-recherche.azurewebsites.net/");
+            RestRequest request = new RestRequest("add/get_postforum?id=" + Message.Message_id + "&date=" + Message.DatePoste + "&author=" + pseudo, Method.GET);
+            var result = client.Execute<bool>(request);
+            return result.Data;
+        }
+
+
         string urlLogger = "http://loggerasp.azurewebsites.net/";
 
         /// <summary>
@@ -28,8 +54,6 @@ namespace Forum.Controllers
         {
             try
             {
-                string sldplsd = null;
-                sldplsd.IndexOf('r');
                 MessageBusiness messageB = new MessageBusiness();
                 return ConvertModel.ToModel(messageB.GetListMessage());
             }
@@ -94,7 +118,13 @@ namespace Forum.Controllers
             try
             {
                 MessageBusiness messageb = new MessageBusiness();
-                return messageb.CreateMessage(ConvertModel.ToBusiness(Message));
+                bool retour = messageb.CreateMessage(ConvertModel.ToBusiness(Message));
+
+                UserSmallModel user = this.GetUserById(Convert.ToInt32(Message.Utilisateur_id));
+                MessageModel mes = ConvertModel.ToModel(messageb.GetListMessage().OrderBy(o => o.Message_id).LastOrDefault());
+                bool postmes = this.PostMess(mes, user.Pseudo);
+
+                return retour & postmes;
             }
             catch (Exception e)
             {
